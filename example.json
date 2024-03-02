@@ -24,7 +24,20 @@
     }
   },
   "content": {
-    "header": {},
+    "header": {
+      "content": [
+        {
+          "@type": "RECT",
+          "size": {
+            "right": 559,
+            "left": 36,
+            "top": 806,
+            "bottom": 36
+          },
+          "border_width": 2
+        }
+      ]
+    },
     "body": {
       "pages": [
         {
@@ -34,6 +47,17 @@
               "@type": "P",
               "value": "Hola mundo ${var2}",
               "alignment": "ALIGN_RIGHT"
+            },
+            {
+              "id": "abcd_123",
+              "@type": "RECT",
+              "size": {
+                "right": 559,
+                "left": 36,
+                "top": 806,
+                "bottom": 36
+              },
+              "border_width": 2
             }
           ]
         },
@@ -49,6 +73,8 @@
         }
       ]
     },
-    "footer": {}
+    "footer": {
+      "content": []
+    }
   }
 }

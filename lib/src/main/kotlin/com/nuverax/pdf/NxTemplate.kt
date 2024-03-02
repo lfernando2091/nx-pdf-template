@@ -2,10 +2,8 @@ package com.nuverax.pdf
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.nuverax.pdf.core.Header
-import com.nuverax.pdf.core.NxContentSetup
-import com.nuverax.pdf.core.NxDocumentSetup
-import com.nuverax.pdf.core.NxVariablesSetup
+import com.itextpdf.text.pdf.PdfPageEventHelper
+import com.nuverax.pdf.core.*
 import com.nuverax.pdf.models.NxPdfTemplate
 import java.io.File
 
@@ -31,19 +29,36 @@ class NxTemplate {
         try {
             val varSettings = NxVariablesSetup(nxDoc.variables)
             val finalVars = varSettings.setup(inputVars)
-            val header = Header(
-                nxDoc.content.header!!,
-                finalVars
-            )
+            val events = mutableListOf<PdfPageEventHelper>()
+            //region Header Config
+            if (nxDoc.content.header != null) {
+                val header = Header(
+                    nxDoc.content.header,
+                    finalVars
+                )
+                events.add(header)
+            }
+            //endregion
+            //region Footer Config
+            if (nxDoc.content.footer != null) {
+                val header = Footer(
+                    nxDoc.content.footer,
+                    finalVars
+                )
+                events.add(header)
+            }
+            //endregion
+            //region Body Config
             val nxDocument = NxDocumentSetup(
                 nxDoc.document,
                 finalVars,
-                listOf(header)
+                events
             )
-            val document = nxDocument.setup(output)
-            val content = NxContentSetup(document, finalVars)
+            val documentSetup = nxDocument.setup(output)
+            val content = NxContentSetup(documentSetup, finalVars)
             content.setup(nxDoc.content.body)
-            document.close()
+            //endregion
+            documentSetup.first.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }

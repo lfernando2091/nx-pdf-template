@@ -15,7 +15,7 @@ class NxDocumentSetup(
     private val variables: Map<String, NxVariable> = emptyMap(),
     private val events: List<PdfPageEvent> = emptyList()
 ) {
-    fun setup(output: File): Document {
+    fun setup(output: File): Pair<Document, PdfWriter> {
         val document = Document(
             PageSize.getRectangle(nxDocument.pageSize),
             nxDocument.margins.left,
@@ -40,6 +40,6 @@ class NxDocumentSetup(
             document.addLanguage(nxDocument.language.processVars(variables))
         if (nxDocument.subject != null)
             document.addSubject(nxDocument.subject.processVars(variables))
-        return document
+        return Pair(document, writer)
     }
 }

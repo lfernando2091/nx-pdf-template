@@ -5,54 +5,40 @@ import com.itextpdf.text.Element
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfPageEventHelper
 import com.itextpdf.text.pdf.PdfWriter
-import com.nuverax.pdf.core.components.NxComponentType
-import com.nuverax.pdf.core.components.NxParagraph
-import com.nuverax.pdf.models.NxBody
-import com.nuverax.pdf.models.NxPage
-import com.nuverax.pdf.models.NxVariable
-import com.nuverax.pdf.utils.processVars
+import com.nuverax.pdf.models.*
 
 class Header(
-    private val content: Any,
+    private val content: NxHeader,
     private val variables: Map<String, NxVariable> = emptyMap()
 ): PdfPageEventHelper() {
     override fun onEndPage(writer: PdfWriter, document: Document) {
-        val paragraph = Paragraph("This is right aligned text")
-        paragraph.alignment = Element.ALIGN_RIGHT
-        document.add(paragraph)
+        for (component in content.content) {
+            component.render(Pair(document, writer), variables)
+        }
     }
 }
-
+class Footer(
+    private val content: NxFooter,
+    private val variables: Map<String, NxVariable> = emptyMap()
+): PdfPageEventHelper() {
+    override fun onEndPage(writer: PdfWriter, document: Document) {
+        for (component in content.content) {
+            component.render(Pair(document, writer), variables)
+        }
+    }
+}
 class NxContentSetup(
-    private val document: Document,
+    private val documentSetup: Pair<Document, PdfWriter>,
     private val variables: Map<String, NxVariable> = emptyMap()
 ) {
     fun setup(content: NxBody) {
         if (content.pages.isEmpty()) return
-        renderPage(content.pages[0])
+        content.pages[0].render(documentSetup, variables)
         if (content.pages.size > 1) {
             for(i in 1 until content.pages.size) {
-                document.newPage()
-                renderPage(content.pages[i])
+                documentSetup.first.newPage()
+                content.pages[i].render(documentSetup, variables)
             }
         }
-    }
-    fun renderPage(page: NxPage) {
-        for (component in page.content) {
-            when(component.type) {
-                NxComponentType.P -> renderParagraph(component as NxParagraph)
-            }
-        }
-    }
-
-    fun renderParagraph(data: NxParagraph) {
-        val paragraph = Paragraph(data.value.processVars(variables))
-        paragraph.alignment = alignConverter(data.alignment)
-        document.add(paragraph)
-    }
-
-    fun alignConverter(type: String): Int = when(type) {
-        "ALIGN_RIGHT" -> Element.ALIGN_RIGHT
-        else -> Element.ALIGN_LEFT
     }
 }

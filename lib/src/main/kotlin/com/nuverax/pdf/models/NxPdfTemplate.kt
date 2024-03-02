@@ -1,6 +1,8 @@
 package com.nuverax.pdf.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.itextpdf.text.Document
+import com.itextpdf.text.pdf.PdfWriter
 import com.nuverax.pdf.core.components.NxBaseComponent
 
 data class Margins(
@@ -32,16 +34,33 @@ data class NxVariable(
     val type: String = VarType.Str.nameType,
     val value: Any?
 )
-data class NxPage(
-    val content: List<NxBaseComponent>
+open class BaseLayout(
+    open val content: List<NxBaseComponent> = emptyList()
 )
+data class NxPage(
+    override val content: List<NxBaseComponent>
+): BaseLayout()
+fun BaseLayout.render(
+    documentSetup: Pair<Document, PdfWriter>,
+    variables: Map<String, NxVariable> = emptyMap()
+) {
+    for (component in this.content) {
+        component.render(documentSetup, variables)
+    }
+}
 data class NxBody(
     val pages: List<NxPage>
 )
+data class NxHeader(
+    override val content: List<NxBaseComponent>
+): BaseLayout()
+data class NxFooter(
+    override val content: List<NxBaseComponent>
+): BaseLayout()
 data class NxContent(
-    val header: Any?,
+    val header: NxHeader?,
     val body: NxBody,
-    val footer: Any?
+    val footer: NxFooter?
 )
 data class NxPdfTemplate(
     val document: NxDocument = NxDocument(),
