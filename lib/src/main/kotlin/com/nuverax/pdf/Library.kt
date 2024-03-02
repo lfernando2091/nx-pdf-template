@@ -15,5 +15,5 @@ class Library {
 
 fun main() {
     val setup = NxTemplate()
-    setup.load(File("example.json"), File("PositionPdf.pdf"))
+    setup.load(File("example.json"), File("example.pdf"))
 }
