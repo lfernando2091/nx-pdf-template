@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "var1": {
+      "type": "Str",
+      "value": "Value 1"
+    },
+    "var2": {
+      "value": "Value 2"
+    }
+  },
+  "document": {
+    "title": "My Title ${var1}",
+    "author": "My author",
+    "creator": "My Creator",
+    "key_words": "My Keywords",
+    "language": "My Language",
+    "subject": "My subject",
+    "page_size": "A4",
+    "margins": {
+      "left": 36.0,
+      "right": 36.0,
+      "bottom": 36.0,
+      "top": 36.0
+    }
+  },
+  "content": {
+    "header": {},
+    "body": {
+      "pages": [
+        {
+          "content": [
+            {
+              "id": "abcd_123",
+              "@type": "P",
+              "value": "Hola mundo ${var2}",
+              "alignment": "ALIGN_RIGHT"
+            }
+          ]
+        },
+        {
+          "content": [
+            {
+              "id": "abcd_123",
+              "@type": "P",
+              "value": "Hola mundo 2222222222",
+              "alignment": "ALIGN_RIGHT"
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {}
+  }
+}
