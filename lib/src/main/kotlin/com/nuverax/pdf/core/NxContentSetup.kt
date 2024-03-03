@@ -1,29 +1,32 @@
 package com.nuverax.pdf.core
 
 import com.itextpdf.text.Document
-import com.itextpdf.text.Element
-import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfPageEventHelper
 import com.itextpdf.text.pdf.PdfWriter
+import com.nuverax.pdf.data.JsonData
+import com.nuverax.pdf.data.NxBaseData
 import com.nuverax.pdf.models.*
 
 class Header(
     private val content: NxHeader,
-    private val variables: Map<String, NxVariable> = emptyMap()
+    private val variables: Map<String, NxVariable> = emptyMap(),
+    var data: NxBaseData<*>? = null
 ): PdfPageEventHelper() {
+
     override fun onEndPage(writer: PdfWriter, document: Document) {
         for (component in content.content) {
-            component.render(Pair(document, writer), variables)
+            component.render(Pair(document, writer), variables, data)
         }
     }
 }
 class Footer(
     private val content: NxFooter,
-    private val variables: Map<String, NxVariable> = emptyMap()
+    private val variables: Map<String, NxVariable> = emptyMap(),
+    var data: NxBaseData<*>? = null
 ): PdfPageEventHelper() {
     override fun onEndPage(writer: PdfWriter, document: Document) {
         for (component in content.content) {
-            component.render(Pair(document, writer), variables)
+            component.render(Pair(document, writer), variables, data)
         }
     }
 }

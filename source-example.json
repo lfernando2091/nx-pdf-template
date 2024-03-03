@@ -1,0 +1,18 @@
+[
+  {
+    "hola": "mundo",
+    "hello": "world",
+    "config": {
+      "val1": "numero 1",
+      "val2": "numero 2"
+    },
+    "json": [
+      {
+        "file": "file 1"
+      },
+      {
+        "file": "file 2"
+      }
+    ]
+  }
+]

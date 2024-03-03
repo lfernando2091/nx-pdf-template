@@ -3,20 +3,25 @@ package com.nuverax.pdf.core.components
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
+import com.nuverax.pdf.data.JsonData
+import com.nuverax.pdf.data.NxBaseData
 import com.nuverax.pdf.models.NxVariable
+import com.nuverax.pdf.utils.processData
 import com.nuverax.pdf.utils.processVars
 
 data class NxParagraph(
     override val id: String = "",
-    override val type: NxComponentType = NxComponentType.P,
     val value: String,
     val alignment: NxAlignment
-): NxBaseComponent() {
+): NxBaseComponent(type = NxComponentType.P) {
     override fun render(
         documentSetup: Pair<Document, PdfWriter>,
-        variables: Map<String, NxVariable>
+        variables: Map<String, NxVariable>,
+        data: NxBaseData<*>?
     ) {
-        val paragraph = Paragraph(value.processVars(variables))
+        val paragraph = Paragraph(
+            value.processVars(variables).processData(data)
+        )
         paragraph.alignment = alignment.converter()
         documentSetup.first.add(paragraph)
     }

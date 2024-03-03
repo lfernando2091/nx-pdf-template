@@ -31,7 +31,7 @@ enum class VarType(val nameType: String) {
     Flt("Flt"),
 }
 data class NxVariable(
-    val type: String = VarType.Str.nameType,
+    val type: VarType = VarType.Str,
     val value: Any?
 )
 open class BaseLayout(

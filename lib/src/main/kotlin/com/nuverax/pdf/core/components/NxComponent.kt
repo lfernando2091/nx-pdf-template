@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.itextpdf.text.Document
 import com.itextpdf.text.pdf.PdfWriter
+import com.nuverax.pdf.data.NxBaseData
 import com.nuverax.pdf.models.NxVariable
 
 enum class NxComponentType(val nameType: String) {
@@ -22,11 +23,12 @@ enum class NxComponentType(val nameType: String) {
 open class NxBaseComponent(
     open val id: String = "",
     @JsonProperty("@type")
-    open val type: NxComponentType = NxComponentType.P
+    val type: NxComponentType = NxComponentType.P
 ) {
     open fun render(
         documentSetup: Pair<Document, PdfWriter>,
-        variables: Map<String, NxVariable> = emptyMap()
+        variables: Map<String, NxVariable> = emptyMap(),
+        data: NxBaseData<*>? = null
     ) {
         TODO("Implement render method")
     }

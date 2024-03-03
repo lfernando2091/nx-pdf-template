@@ -27,12 +27,17 @@
     "header": {
       "content": [
         {
+          "@type": "P",
+          "value": "Hola mundo ${json(config.val1)}",
+          "alignment": "ALIGN_RIGHT"
+        },
+        {
           "@type": "RECT",
           "size": {
-            "right": 559,
-            "left": 36,
+            "right": 300,
+            "left": 10,
             "top": 806,
-            "bottom": 36
+            "bottom": 10
           },
           "border_width": 2
         }

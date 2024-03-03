@@ -3,8 +3,26 @@
  */
 package com.nuverax.pdf
 
+import com.nuverax.pdf.data.NxJsonSource
+import com.nuverax.pdf.utils.JSON_VAR_REGEX
+import com.nuverax.pdf.utils.VAR_REGEX
+import com.nuverax.pdf.utils.hasVariables
 import java.io.File
 fun main() {
-    val setup = NxTemplate()
-    setup.load(File("example.json"), File("example.pdf"))
+
+    val test = "Hola \${hola} mundo \${json(config.val1)} nanananan \${json(config.val2)} \${sql(config.val2)}"
+    val matcher = VAR_REGEX.matcher(test)
+    while(matcher.find()) {
+        val matcher2 = JSON_VAR_REGEX.matcher(matcher.group(1))
+        if (matcher2.find()) {
+            println("result: ${matcher2.group(1)}")
+        }
+    }
+
+//    val source = NxJsonSource()
+//    source.read(File("source-example.json"))
+//    val setup = NxTemplate(
+//        source
+//    )
+//    setup.load(File("example.json"), File("example.pdf"))
 }

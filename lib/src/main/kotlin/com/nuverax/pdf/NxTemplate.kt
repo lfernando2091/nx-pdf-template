@@ -4,11 +4,15 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.itextpdf.text.pdf.PdfPageEventHelper
 import com.nuverax.pdf.core.*
+import com.nuverax.pdf.data.NxBaseDataSource
+import com.nuverax.pdf.data.NxJsonSource
 import com.nuverax.pdf.models.NxPdfTemplate
 import java.io.File
 
 
-class NxTemplate {
+class NxTemplate<T>(
+    private val source: NxBaseDataSource<T>? = null
+) {
     fun load(input: File, output: File) {
         val mapper = jacksonObjectMapper()
         val data = mapper.readValue<NxPdfTemplate>(input)
@@ -31,34 +35,51 @@ class NxTemplate {
             val finalVars = varSettings.setup(inputVars)
             val events = mutableListOf<PdfPageEventHelper>()
             //region Header Config
-            if (nxDoc.content.header != null) {
-                val header = Header(
+            val header = if (nxDoc.content.header != null) {
+                val h = Header(
                     nxDoc.content.header,
                     finalVars
                 )
-                events.add(header)
-            }
+                events.add(h)
+                h
+            } else null
             //endregion
             //region Footer Config
-            if (nxDoc.content.footer != null) {
-                val header = Footer(
+            val footer = if (nxDoc.content.footer != null) {
+                val f = Footer(
                     nxDoc.content.footer,
                     finalVars
                 )
-                events.add(header)
+                events.add(f)
+                f
+            } else null
+            //endregion
+            if (source != null) {
+                when(source) {
+                    is NxJsonSource -> {
+                        for (el in source.iterate()!!) {
+                            if (header != null)
+                                header.data = el
+                            if (footer != null)
+                                footer.data = el
+
+                            println(el)
+                        }
+                    }
+                }
+            } else {
+                //region Body Config
+                val nxDocument = NxDocumentSetup(
+                    nxDoc.document,
+                    finalVars,
+                    events
+                )
+                val documentSetup = nxDocument.setup(output)
+                val content = NxContentSetup(documentSetup, finalVars)
+                content.setup(nxDoc.content.body)
+                documentSetup.first.close()
+                //endregion
             }
-            //endregion
-            //region Body Config
-            val nxDocument = NxDocumentSetup(
-                nxDoc.document,
-                finalVars,
-                events
-            )
-            val documentSetup = nxDocument.setup(output)
-            val content = NxContentSetup(documentSetup, finalVars)
-            content.setup(nxDoc.content.body)
-            //endregion
-            documentSetup.first.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }

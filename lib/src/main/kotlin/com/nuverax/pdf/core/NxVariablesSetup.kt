@@ -15,12 +15,11 @@ class NxVariablesSetup(
         mutate.putAll(default)
         for ((key, value) in input.entries) {
             if (mutate.containsKey(key)) {
-                val current = mutate.get(key)!!
-                val type = VarType.valueOf(current.type)
-                when(type) {
-                    VarType.Str -> mutate.put(key, NxVariable(type.nameType, value))
-                    VarType.Int -> mutate.put(key, NxVariable(type.nameType, value.toIntOrNull()))
-                    VarType.Flt -> mutate.put(key, NxVariable(type.nameType, value.toFloatOrNull()))
+                val current = mutate[key]!!
+                when(current.type) {
+                    VarType.Str -> mutate[key] = NxVariable(current.type, value)
+                    VarType.Int -> mutate[key] = NxVariable(current.type, value.toIntOrNull())
+                    VarType.Flt -> mutate[key] = NxVariable(current.type, value.toFloatOrNull())
                 }
             }
         }
