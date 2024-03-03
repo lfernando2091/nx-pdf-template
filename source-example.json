@@ -14,5 +14,21 @@
         "file": "file 2"
       }
     ]
+  },
+  {
+    "hola": "mundo 2",
+    "hello": "world 2",
+    "config": {
+      "val1": "numero 2",
+      "val2": "numero 3"
+    },
+    "json": [
+      {
+        "file": "file 2"
+      },
+      {
+        "file": "file 3"
+      }
+    ]
   }
 ]

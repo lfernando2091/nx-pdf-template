@@ -65,13 +65,16 @@ class NxTemplate(
             if (source != null) {
                 when(source) {
                     is NxJsonSource -> {
-                        for (el in source.iterate()!!) {
+                        for ((i, el) in source.iterate()!!.withIndex()) {
+                            if(i > 0)
+                                documentSetup.first.newPage()
                             if (header != null)
                                 header.data = el
                             if (footer != null)
                                 footer.data = el
                             val content = NxContentSetup(documentSetup, finalVars, el)
                             content.setup(nxDoc.content.body)
+
                         }
                     }
                 }
