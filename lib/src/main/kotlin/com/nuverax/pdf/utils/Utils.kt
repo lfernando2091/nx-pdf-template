@@ -1,5 +1,6 @@
 package com.nuverax.pdf.utils
 
+import com.itextpdf.text.BaseColor
 import com.nuverax.pdf.data.JsonData
 import com.nuverax.pdf.data.NxBaseData
 import com.nuverax.pdf.models.NxVariable
@@ -51,4 +52,20 @@ public fun String.processData(data: NxBaseData<*>?): String {
         return updated
     }
     return this
+}
+
+public fun String.hexToRgba(): BaseColor = when(this.length){
+        7 -> BaseColor(
+            Integer.valueOf( this.substring( 1, 3 ), 16 ),
+            Integer.valueOf( this.substring( 3, 5 ), 16 ),
+            Integer.valueOf( this.substring( 5, 7 ), 16 )
+        )
+        9 -> BaseColor(
+            Integer.valueOf( this.substring( 1, 3 ), 16 ),
+            Integer.valueOf( this.substring( 3, 5 ), 16 ),
+            Integer.valueOf( this.substring( 5, 7 ), 16 ),
+            Integer.valueOf( this.substring( 7, 9 ), 16 )
+        )
+
+    else -> BaseColor(0f, 0f, 0f)
 }

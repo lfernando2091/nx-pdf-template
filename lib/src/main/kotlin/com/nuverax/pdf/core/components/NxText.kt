@@ -1,8 +1,6 @@
 package com.nuverax.pdf.core.components
 
-import com.itextpdf.text.Document
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.Phrase
+import com.itextpdf.text.*
 import com.itextpdf.text.pdf.ColumnText
 import com.itextpdf.text.pdf.PdfWriter
 import com.nuverax.pdf.data.JsonData
@@ -31,7 +29,6 @@ data class NxParagraph(
 //        )
 //        paragraph.alignment = alignment.converter()
 //        documentSetup.first.add(paragraph)
-
         val pageSize = documentSetup.first.pageSize
         val finalPosition = size.rectangle(position, pageSize)
         val txt = ColumnText(documentSetup.second.directContent)
@@ -43,9 +40,16 @@ data class NxParagraph(
             finalPosition.top
         )
         txt.alignment = alignment.converter()
+        val font = Font(
+            Font.FontFamily.HELVETICA,
+            12f,
+            Font.ITALIC,
+            BaseColor.GRAY
+        )
         txt.setText(Phrase(
             value.processVars(variables)
-                .processData(data)
+                .processData(data),
+            font
         ))
         txt.go()
     }
