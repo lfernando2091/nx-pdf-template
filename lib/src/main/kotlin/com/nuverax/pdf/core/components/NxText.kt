@@ -42,6 +42,7 @@ data class NxParagraph(
             finalPosition.right,
             finalPosition.top
         )
+        txt.alignment = alignment.converter()
         txt.setText(Phrase(
             value.processVars(variables)
                 .processData(data)
