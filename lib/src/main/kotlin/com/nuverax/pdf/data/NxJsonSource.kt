@@ -2,6 +2,9 @@ package com.nuverax.pdf.data
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.nuverax.pdf.utils.ARRAY_REGEX
+import com.nuverax.pdf.utils.arrayIndexes
+import com.nuverax.pdf.utils.hasArraysDefinition
 import java.io.File
 
 class JsonData(
@@ -11,7 +14,21 @@ class JsonData(
     NxDataSourceType.json
 ) {
     override fun retrieve(input: String): String? {
-        return super.retrieve(input)
+        var current = data
+        val properties = input.split(".")
+        for (part in properties) {
+            if (part.hasArraysDefinition()) {
+                val propertyName = part.replace(ARRAY_REGEX.toRegex(), "")
+                current = current.get(propertyName)
+                val indexes = part.arrayIndexes()
+                for (index in indexes) {
+                    current = current.get(index)
+                }
+            } else {
+                current = current.get(part)
+            }
+        }
+        return current.asText()
     }
 }
 

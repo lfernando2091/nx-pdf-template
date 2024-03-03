@@ -20,7 +20,8 @@ data class NxParagraph(
         data: NxBaseData<*>?
     ) {
         val paragraph = Paragraph(
-            value.processVars(variables).processData(data)
+            value.processVars(variables)
+                .processData(data)
         )
         paragraph.alignment = alignment.converter()
         documentSetup.first.add(paragraph)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.itextpdf.text.Document
 import com.itextpdf.text.pdf.PdfWriter
 import com.nuverax.pdf.core.components.NxBaseComponent
+import com.nuverax.pdf.data.NxBaseData
 
 data class Margins(
     val left: Float = 0f,
@@ -42,10 +43,11 @@ data class NxPage(
 ): BaseLayout()
 fun BaseLayout.render(
     documentSetup: Pair<Document, PdfWriter>,
-    variables: Map<String, NxVariable> = emptyMap()
+    variables: Map<String, NxVariable> = emptyMap(),
+    data: NxBaseData<*>? = null
 ) {
     for (component in this.content) {
-        component.render(documentSetup, variables)
+        component.render(documentSetup, variables, data)
     }
 }
 data class NxBody(

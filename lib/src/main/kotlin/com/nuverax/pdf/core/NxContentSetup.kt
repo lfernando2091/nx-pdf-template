@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper
 import com.itextpdf.text.pdf.PdfWriter
 import com.nuverax.pdf.data.JsonData
 import com.nuverax.pdf.data.NxBaseData
+import com.nuverax.pdf.data.NxBaseDataSource
 import com.nuverax.pdf.models.*
 
 class Header(
@@ -12,7 +13,6 @@ class Header(
     private val variables: Map<String, NxVariable> = emptyMap(),
     var data: NxBaseData<*>? = null
 ): PdfPageEventHelper() {
-
     override fun onEndPage(writer: PdfWriter, document: Document) {
         for (component in content.content) {
             component.render(Pair(document, writer), variables, data)
@@ -32,15 +32,16 @@ class Footer(
 }
 class NxContentSetup(
     private val documentSetup: Pair<Document, PdfWriter>,
-    private val variables: Map<String, NxVariable> = emptyMap()
+    private val variables: Map<String, NxVariable> = emptyMap(),
+    private val source: NxBaseData<*>? = null
 ) {
     fun setup(content: NxBody) {
         if (content.pages.isEmpty()) return
-        content.pages[0].render(documentSetup, variables)
+        content.pages[0].render(documentSetup, variables, source)
         if (content.pages.size > 1) {
             for(i in 1 until content.pages.size) {
                 documentSetup.first.newPage()
-                content.pages[i].render(documentSetup, variables)
+                content.pages[i].render(documentSetup, variables, source)
             }
         }
     }

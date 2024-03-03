@@ -10,8 +10,8 @@ import com.nuverax.pdf.models.NxPdfTemplate
 import java.io.File
 
 
-class NxTemplate<T>(
-    private val source: NxBaseDataSource<T>? = null
+class NxTemplate(
+    private val source: NxBaseDataSource<*>? = null
 ) {
     fun load(input: File, output: File) {
         val mapper = jacksonObjectMapper()
@@ -54,6 +54,14 @@ class NxTemplate<T>(
                 f
             } else null
             //endregion
+            //region Body Config
+            val nxDocument = NxDocumentSetup(
+                nxDoc.document,
+                finalVars,
+                events
+            )
+            val documentSetup = nxDocument.setup(output)
+            //endregion
             if (source != null) {
                 when(source) {
                     is NxJsonSource -> {
@@ -62,24 +70,16 @@ class NxTemplate<T>(
                                 header.data = el
                             if (footer != null)
                                 footer.data = el
-
-                            println(el)
+                            val content = NxContentSetup(documentSetup, finalVars, el)
+                            content.setup(nxDoc.content.body)
                         }
                     }
                 }
             } else {
-                //region Body Config
-                val nxDocument = NxDocumentSetup(
-                    nxDoc.document,
-                    finalVars,
-                    events
-                )
-                val documentSetup = nxDocument.setup(output)
                 val content = NxContentSetup(documentSetup, finalVars)
                 content.setup(nxDoc.content.body)
-                documentSetup.first.close()
-                //endregion
             }
+            documentSetup.first.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }

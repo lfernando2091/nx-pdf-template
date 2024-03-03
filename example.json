@@ -28,7 +28,7 @@
       "content": [
         {
           "@type": "P",
-          "value": "Hola mundo ${json(config.val1)}",
+          "value": "Hola mundo ${json(json[1].file)}",
           "alignment": "ALIGN_RIGHT"
         },
         {
