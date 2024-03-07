@@ -30,6 +30,12 @@
           "position": {
             "x": 38.4,
             "y": 23.55
+          },
+          "font": {
+            "size": 14,
+            "hexColor": "#009732cc",
+            "fontFamily": "HELVETICA",
+            "style": "BOLD"
           }
         },
         {
@@ -126,7 +132,7 @@
               "id": "c9f9e758-c8cb-4be5-ad07-058c2668c692",
               "@type": "P",
               "value": "WHEREAS, the DEBTOR has an existing obligation to the CREDITOR for an amount of ${json(amount)} under a Loan Contract.WHEREAS, the DEBTOR and the CREDITOR, by the goodwill of both parties, desire tosecure the amount of debt {json(amount)} by debt restructuring with thisAgreement under the terms and conditions herein provided;NOW, THEREFORE, for and in consideration of the foregoing premises, the partieshereto agree as follows:",
-              "alignment": "ALIGN_LEFT",
+              "alignment": "ALIGN_JUSTIFIED",
               "size": {
                 "width": 521.8,
                 "height": 70.14
