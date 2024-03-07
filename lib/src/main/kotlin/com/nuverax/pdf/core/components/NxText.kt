@@ -42,9 +42,9 @@ data class NxParagraph(
         txt.alignment = alignment.converter()
         val font = Font(
             Font.FontFamily.HELVETICA,
-            12f,
-            Font.ITALIC,
-            BaseColor.GRAY
+            9f,
+            Font.NORMAL,
+            BaseColor.BLACK
         )
         txt.setText(Phrase(
             value.processVars(variables)

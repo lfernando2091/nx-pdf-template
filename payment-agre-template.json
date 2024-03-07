@@ -22,7 +22,7 @@
           "id": "de4585c4-d55a-4d2b-a2dd-068a8f30af68",
           "@type": "P",
           "value": "My Company",
-          "alignment": "ALIGN_RIGHT",
+          "alignment": "ALIGN_LEFT",
           "size": {
             "width": 180,
             "height": 25
@@ -36,7 +36,7 @@
           "id": "5c43e5b5-d58a-460c-acb5-d63d9f932c08",
           "@type": "P",
           "value": "Payment Agreement",
-          "alignment": "ALIGN_RIGHT",
+          "alignment": "ALIGN_LEFT",
           "size": {
             "width": 169.9,
             "height": 25
@@ -56,7 +56,7 @@
               "id": "d890285d-b3a3-4fa3-8f8c-690145c39dd8",
               "@type": "P",
               "value": "This Payment Agreement (\"Agreement\" hereinafter) has been signed between theparties below, on ${now}, under the indicated terms and conditions.",
-              "alignment": "ALIGN_RIGHT",
+              "alignment": "ALIGN_LEFT",
               "size": {
                 "width": 523,
                 "height": 32.63
@@ -70,7 +70,7 @@
               "id": "29fade47-86dc-491b-b186-05879747bc7c",
               "@type": "P",
               "value": "${json(first_name)} ${json(last_name)} of legal age, residing at ${json(street)}, ${json(zip_code)}, ${json(city)} (hereinafter shall bereferred as the \"DEBTOR\");",
-              "alignment": "ALIGN_RIGHT",
+              "alignment": "ALIGN_LEFT",
               "size": {
                 "width": 521.09,
                 "height": 73.27
@@ -84,7 +84,7 @@
               "id": "93fbc5a2-e136-4446-9893-f2df1753e3d5",
               "@type": "P",
               "value": "- AND - ",
-              "alignment": "ALIGN_RIGHT",
+              "alignment": "ALIGN_LEFT",
               "size": {
                 "width": 77.23,
                 "height": 21.78
@@ -98,7 +98,7 @@
               "id": "93c82ed8-01cb-4546-9315-2a219d464617",
               "@type": "P",
               "value": "${json(company.name)} legally capable, residing a ${json(company.street)}, ${json(company.zip_code)}, ${json(company.city)} , (hereinafter shall bereferred as the \"CREDITOR\");",
-              "alignment": "ALIGN_RIGHT",
+              "alignment": "ALIGN_LEFT",
               "size": {
                 "width": 523.09,
                 "height": 44.49
@@ -112,7 +112,7 @@
               "id": "2b609af6-dd50-455b-bad8-52d22eaa252b",
               "@type": "P",
               "value": "WITNESSETH: That -",
-              "alignment": "ALIGN_RIGHT",
+              "alignment": "ALIGN_LEFT",
               "size": {
                 "width": 143.99,
                 "height": 22.77
@@ -126,7 +126,7 @@
               "id": "c9f9e758-c8cb-4be5-ad07-058c2668c692",
               "@type": "P",
               "value": "WHEREAS, the DEBTOR has an existing obligation to the CREDITOR for an amount of ${json(amount)} under a Loan Contract.WHEREAS, the DEBTOR and the CREDITOR, by the goodwill of both parties, desire tosecure the amount of debt {json(amount)} by debt restructuring with thisAgreement under the terms and conditions herein provided;NOW, THEREFORE, for and in consideration of the foregoing premises, the partieshereto agree as follows:",
-              "alignment": "ALIGN_RIGHT",
+              "alignment": "ALIGN_LEFT",
               "size": {
                 "width": 521.8,
                 "height": 70.14
@@ -140,7 +140,7 @@
               "id": "15b17f4e-85a5-4439-88bb-d14fd5dc5272",
               "@type": "P",
               "value": "1. Payment Plan\n\nThe Parties agree that the total debt, ${json(amount)} shall be paid in accordance withthe Payment Plan which is an integral part of this Agreement, indicated below.The DEBTOR accepts, declares and undertakes to pay the amounts in full on the datesspecified in the Payment Plan.\n\n2. Payment Method\n\nPayment shall preferably be made to the CREDITOR as indicated in the Payment Plan,but in any case, the DEBTOR may choose his method of payment to his convenience.",
-              "alignment": "ALIGN_RIGHT",
+              "alignment": "ALIGN_LEFT",
               "size": {
                 "width": 522.8,
                 "height": 142.6
@@ -160,7 +160,7 @@
           "id": "561cfc59-4bb4-425a-addb-1b7d6d1094bc",
           "@type": "P",
           "value": "Created with NX PDF Template",
-          "alignment": "ALIGN_RIGHT",
+          "alignment": "ALIGN_LEFT",
           "size": {
             "width": 293.07,
             "height": 27.78
