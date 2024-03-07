@@ -2,6 +2,8 @@
 
 This is the Kotlin module for rendering your JSON Templates.
 
+[Use UI Editor](https://github.com/lfernando2091/nx-pdf-template-editor-ui)
+
 ## What's this?
 
 This is a concept project for dynamic PDF generation using JSON templates.
