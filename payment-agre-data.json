@@ -1,0 +1,16 @@
+[
+  {
+    "first_name": "Fernando",
+    "last_name": "Mendes",
+    "street": "My street",
+    "zip_code": "12345",
+    "city": "My city",
+    "company": {
+      "name": "My new other company",
+      "street": "My company street",
+      "zip_code": "123098",
+      "city": "My city"
+    },
+    "amount": "$1,000.00"
+  }
+]

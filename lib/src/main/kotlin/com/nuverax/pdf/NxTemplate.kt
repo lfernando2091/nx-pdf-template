@@ -13,15 +13,13 @@ import java.io.File
 class NxTemplate(
     private val source: NxBaseDataSource<*>? = null
 ) {
-    fun load(input: File, output: File) {
+    fun load(input: File, output: File, inputVars: Map<String, String>? = emptyMap()) {
         val mapper = jacksonObjectMapper()
         val data = mapper.readValue<NxPdfTemplate>(input)
         render(
             data,
             output,
-            mapOf(
-                "var1" to "Hoaoaoaoao"
-            )
+            inputVars
         )
     }
 

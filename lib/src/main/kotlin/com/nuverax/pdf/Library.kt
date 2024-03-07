@@ -6,10 +6,21 @@ package com.nuverax.pdf
 import com.nuverax.pdf.data.NxJsonSource
 import java.io.File
 fun main() {
+//    val source = NxJsonSource()
+//    source.read(File("source-example.json"))
+//    val setup = NxTemplate(
+//        source
+//    )
+//    setup.load(File("example.json"), File("example.pdf"), mapOf("var1" to "Hoaoaoaoao"))
+
     val source = NxJsonSource()
-    source.read(File("source-example.json"))
+    source.read(File("payment-agre-data.json"))
     val setup = NxTemplate(
         source
     )
-    setup.load(File("example.json"), File("example.pdf"))
+    setup.load(
+        File("payment-agre-template.json"),
+        File("payment-agre-render.pdf"),
+        mapOf("now" to "03/06/2024")
+    )
 }
